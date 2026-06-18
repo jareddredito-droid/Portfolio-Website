@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jared Redito</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --navy:    #0d1b2a;
+      --steel:   #1c2e40;
+      --cream:   #e8e0d0;
+      --muted:   #8a9baa;
+      --accent:  #c8a96e; /* worn gold — military/strength reference */
+      --white:   #f5f2ed;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200,169,110,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 800;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name span {
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .tag {
+      border: 1px solid rgba(200,169,110,0.35);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 2px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.8rem;
+      border-radius: 3px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+    }
+
+    .btn-primary:hover { background: #dbbe82; }
+
+    .btn-ghost {
+      border: 1px solid rgba(200,169,110,0.4);
+      color: var(--accent);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      background: rgba(200,169,110,0.08);
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* SECTIONS */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(200,169,110,0.2);
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      color: var(--white);
+    }
+
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .stat-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .stat-item {
+      border-left: 2px solid var(--accent);
+      padding-left: 1.2rem;
+    }
+
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .skill-cell {
+      background: var(--black);
+      padding: 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .skill-cell:hover { background: var(--navy); }
+
+    .skill-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .skill-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .skill-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* PROJECTS */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .project-card {
+      background: var(--black);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      transition: background 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .project-card:hover { background: var(--navy); }
+
+    .project-info { flex: 1; }
+
+    .project-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .project-arrow {
+      color: var(--accent);
+      font-size: 1.4rem;
+      opacity: 0.5;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    .project-card:hover .project-arrow {
+      opacity: 1;
+      transform: translate(3px, -3px);
+    }
+
+    /* EXPERIENCE */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-period {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      padding-top: 0.2rem;
+    }
+
+    .exp-role {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .exp-org {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+    }
+
+    .exp-detail {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* CONTACT */
+    #contact {
+      text-align: center;
+      padding: 5rem 2.5rem 8rem;
+    }
+
+    #contact h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+
+    #contact p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .social-link:hover { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 3.5rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.3rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (max-width: 420px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">JR</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="eyebrow">Full Stack Developer · U.S. Army Veteran</p>
+    <h1 class="hero-name">
+      Jared<span>Redito</span>
+    </h1>
+    <p class="hero-sub">
+      Building modern web applications and fitness tools for hybrid athletes. 
+      IT background, Army-trained, and currently completing a full stack developer program.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">HTML & CSS</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">React</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">IT Support</span>
+      <span class="tag">25B MOS</span>
+    </div>
+    <div class="cta-row">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About Me</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>Soldier.<br>Developer.<br>Athlete.</h2>
+        <p>
+          I'm a U.S. Army National Guard IT Specialist (25B MOS) based in Murfreesboro, TN, 
+          transitioning into full stack development. I recently returned from a deployment to Kuwait 
+          and am now completing the ERA Solutions Full Stack Developer program.
+        </p>
+        <p>
+          Outside of code, I train as a hybrid athlete — combining powerlifting, calisthenics, 
+          and running — and am building a fitness platform designed specifically for athletes who 
+          refuse to specialize in just one discipline.
+        </p>
+      </div>
+      <div class="stat-stack">
+        <div class="stat-item">
+          <div class="stat-num">25B</div>
+          <div class="stat-desc">Army IT Specialist MOS</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3+</div>
+          <div class="stat-desc">Years in IT & Help Desk</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">Full Stack</div>
+          <div class="stat-desc">ERA Solutions Developer Program</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">Kuwait</div>
+          <div class="stat-desc">Deployed — National Guard</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Technical Skills</p>
+    <div class="skills-grid">
+      <div class="skill-cell">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">HTML & CSS</div>
+        <div class="skill-desc">Semantic layout, responsive design, forms, and tables. Certified module complete.</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-name">JavaScript</div>
+        <div class="skill-desc">DOM manipulation, OOP, closures, async patterns, and ES6+ syntax.</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">⚛️</div>
+        <div class="skill-name">React</div>
+        <div class="skill-desc">Component architecture, state management, JSX, hooks. Currently in training.</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">🚀</div>
+        <div class="skill-name">Next.js</div>
+        <div class="skill-desc">File-based routing, performance optimization, and modern app deployment.</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">🖥️</div>
+        <div class="skill-name">IT Support</div>
+        <div class="skill-desc">Help desk, ticketing, hardware/software troubleshooting, healthcare systems.</div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-icon">🔧</div>
+        <div class="skill-name">Dev Tools</div>
+        <div class="skill-desc">VS Code, GitHub, Vercel deployment, npm, command line.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Projects</p>
+    <div class="projects-list">
+      <a href="#" class="project-card">
+        <div class="project-info">
+          <div class="project-tag">HTML · CSS · Deployed</div>
+          <div class="project-name">Hybrid Athletics Landing Page</div>
+          <p class="project-desc">
+            A fully responsive landing page built as my HTML/CSS module capstone. 
+            Themed around hybrid athlete training with a dark navy and cream design system. 
+            Deployed live via Vercel.
+          </p>
+        </div>
+        <div class="project-arrow">↗</div>
+      </a>
+      <a href="#" class="project-card">
+        <div class="project-info">
+          <div class="project-tag">JavaScript · DOM · In Progress</div>
+          <div class="project-name">Vintage Barbershop Website</div>
+          <p class="project-desc">
+            JavaScript module class project. Covers DOM manipulation, event handling, 
+            OOP, and dynamic UI interaction. Built from scratch in VS Code.
+          </p>
+        </div>
+        <div class="project-arrow">↗</div>
+      </a>
+      <a href="#" class="project-card">
+        <div class="project-info">
+          <div class="project-tag">React · Concept · Coming Soon</div>
+          <div class="project-name">Hybrid Athlete Ranking App</div>
+          <p class="project-desc">
+            A fitness platform where athletes input their stats — powerlifting numbers, 
+            run times, bodyweight — and receive a unified score to rank within divisions. 
+            Built for athletes who train strength and endurance simultaneously.
+          </p>
+        </div>
+        <div class="project-arrow">↗</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label">Experience</p>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-period">2021 – Present</div>
+        <div>
+          <div class="exp-role">IT Specialist · 25B MOS</div>
+          <div class="exp-org">U.S. Army National Guard</div>
+          <p class="exp-detail">
+            Trained at the U.S. Army Cyber Center of Excellence at Fort Gordon. 
+            Responsible for maintaining and troubleshooting Army IT systems. 
+            Deployed to Kuwait. Applies military discipline and precision to technical problem-solving.
+          </p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-period">2022 – 2023</div>
+        <div>
+          <div class="exp-role">Help Desk Analyst I</div>
+          <div class="exp-org">HCTec</div>
+          <p class="exp-detail">
+            Provided Tier 1 IT support for healthcare clients. Handled hardware/software 
+            troubleshooting, ticketing, and remote support across enterprise healthcare systems.
+          </p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-period">2026 – Present</div>
+        <div>
+          <div class="exp-role">Full Stack Developer (In Training)</div>
+          <div class="exp-org">ERA Solutions · VetBoss Program</div>
+          <p class="exp-detail">
+            Completing a full stack developer bootcamp covering HTML, CSS, JavaScript, 
+            React, Next.js, Node.js, and databases. Certified in HTML/CSS. 
+            Building and deploying live projects throughout the program.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label" style="justify-content:center;">Contact</p>
+    <h2>Let's Work Together</h2>
+    <p>Open to full stack, front end, and IT roles in the Nashville, TN area.</p>
+    <a href="mailto:your@email.com" class="btn btn-primary">Send Me an Email</a>
+    <div class="social-row">
+      <a href="https://github.com/" target="_blank" class="social-link">GitHub</a>
+      <a href="https://linkedin.com/" target="_blank" class="social-link">LinkedIn</a>
+      <a href="https://tiktok.com/@jaredworkout" target="_blank" class="social-link">TikTok</a>
+      <a href="https://instagram.com/jaredworkout" target="_blank" class="social-link">Instagram</a>
+      <a href="https://youtube.com/@jaredworkout" target="_blank" class="social-link">YouTube</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Jared Redito</span>
+    <span>Murfreesboro, TN</span>
+  </footer>
+
+</body>
+</html>
